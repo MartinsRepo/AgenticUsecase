@@ -16,7 +16,7 @@ vehicle model.
 
 from __future__ import annotations
 
-from typing import Optional
+
 
 from src import config
 from src.controllers.pid import PIDController
@@ -49,8 +49,8 @@ class ACC:
         self,
         ego_speed: float,
         dt: float,
-        lead_distance: Optional[float] = None,
-        lead_speed: Optional[float] = None,
+        lead_distance: float | None = None,
+        lead_speed: float | None = None,
     ) -> float:
         """Return longitudinal acceleration command (m/s²).
 

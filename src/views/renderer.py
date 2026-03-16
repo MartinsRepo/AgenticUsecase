@@ -17,7 +17,7 @@ toward the top of the window as it accelerates).
 from __future__ import annotations
 
 import math
-from typing import List, Optional, Tuple
+
 
 import pygame
 import numpy as np
@@ -52,8 +52,8 @@ class Renderer:
     def draw_frame(
         self,
         ego: Vehicle,
-        npcs: List[NPCVehicle],
-        obstacles: List[Obstacle],
+        npcs: list[NPCVehicle],
+        obstacles: list[Obstacle],
         radar_reading: RadarReading,
         warning: bool,
     ) -> None:
@@ -181,7 +181,7 @@ class Renderer:
         theta: float,
         width: float,
         length: float,
-        color: Tuple[int, int, int],
+        color: tuple[int, int, int],
         cam_x: float,
         cam_y: float,
         is_ego: bool = False,
@@ -350,7 +350,7 @@ class Renderer:
 
     def screen_to_world(
         self, screen_x: int, screen_y: int, cam_x: float, cam_y: float
-    ) -> Tuple[float, float]:
+    ) -> tuple[float, float]:
         """Convert a screen position back to world coordinates.
 
         Used for mapping mouse clicks to obstacle placements.

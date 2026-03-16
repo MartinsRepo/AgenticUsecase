@@ -7,7 +7,7 @@ output.  It uses a fixed-size left-side panel.
 from __future__ import annotations
 
 import math
-from typing import Optional
+
 
 import pygame
 
@@ -47,7 +47,7 @@ class HUD:
         target_speed_ms: float,
         acc_active: bool,
         lka_active: bool,
-        lead_distance: Optional[float],
+        lead_distance: float | None,
         radar_reading: RadarReading,
         steering_angle: float,
         acceleration: float,

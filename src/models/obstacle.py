@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import random
-from typing import Tuple
 
 from src import config
 
@@ -25,7 +24,7 @@ class Obstacle:
         y: float,
         width: float = 2.0,
         length: float = 4.5,
-        color: Tuple[int, int, int] = config.COLOR_OBSTACLE,
+        color: tuple[int, int, int] = config.COLOR_OBSTACLE,
     ) -> None:
         self.x = x
         self.y = y
@@ -33,7 +32,7 @@ class Obstacle:
         self.length = length
         self.color = color
 
-    def get_corners(self) -> list[Tuple[float, float]]:
+    def get_corners(self) -> list[tuple[float, float]]:
         """Return four world-space corners (no heading – always aligned to axes)."""
         half_w = self.width / 2.0
         half_l = self.length / 2.0
@@ -63,7 +62,7 @@ class NPCVehicle:
         lane_index: int,
         y: float,
         speed: float | None = None,
-        color: Tuple[int, int, int] = config.COLOR_NPC,
+        color: tuple[int, int, int] = config.COLOR_NPC,
     ) -> None:
         self.lane_index = lane_index
         self.x: float = _lane_center_x(lane_index)
@@ -77,14 +76,14 @@ class NPCVehicle:
         )
         self.width: float = config.NPC_WIDTH_M
         self.length: float = config.NPC_LENGTH_M
-        self.color: Tuple[int, int, int] = color
+        self.color: tuple[int, int, int] = color
         self.theta: float = 0.0  # always heading straight
 
     def update(self, dt: float) -> None:
         """Advance NPC position by one time step."""
         self.y += self.speed * dt
 
-    def get_corners(self) -> list[Tuple[float, float]]:
+    def get_corners(self) -> list[tuple[float, float]]:
         """Return four world-space corners (axis-aligned)."""
         half_w = self.width / 2.0
         half_l = self.length / 2.0

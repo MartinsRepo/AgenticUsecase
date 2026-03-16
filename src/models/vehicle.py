@@ -25,7 +25,6 @@ from __future__ import annotations
 
 import math
 from dataclasses import dataclass
-from typing import List, Tuple
 
 import numpy as np
 
@@ -77,7 +76,7 @@ class Vehicle:
         max_speed: float = config.MAX_SPEED_MS,
         max_accel: float = config.MAX_ACCEL_MS2,
         max_decel: float = config.MAX_DECEL_MS2,
-        color: Tuple[int, int, int] = config.COLOR_EGO,
+        color: tuple[int, int, int] = config.COLOR_EGO,
     ) -> None:
         self.state = VehicleState(x=x, y=y, theta=theta, v=v)
         self.wheelbase = wheelbase
@@ -157,7 +156,7 @@ class Vehicle:
     # Geometry helpers
     # ------------------------------------------------------------------
 
-    def get_corners(self) -> List[Tuple[float, float]]:
+    def get_corners(self) -> list[tuple[float, float]]:
         """Return the four body corners in world (x, y) coordinates.
 
         The rotation formula for a point (lx, ly) in the vehicle's local
@@ -174,14 +173,14 @@ class Vehicle:
         sin_t = math.sin(self.state.theta)
 
         # Local (lateral, longitudinal) offsets for each corner.
-        local_corners: List[Tuple[float, float]] = [
+        local_corners: list[tuple[float, float]] = [
             (-half_w,  half_l),   # front-left
             ( half_w,  half_l),   # front-right
             ( half_w, -half_l),   # rear-right
             (-half_w, -half_l),   # rear-left
         ]
 
-        world_corners: List[Tuple[float, float]] = []
+        world_corners: list[tuple[float, float]] = []
         for lx, ly in local_corners:
             wx = self.state.x + lx * cos_t + ly * sin_t
             wy = self.state.y - lx * sin_t + ly * cos_t
@@ -189,7 +188,7 @@ class Vehicle:
 
         return world_corners
 
-    def get_front_center(self) -> Tuple[float, float]:
+    def get_front_center(self) -> tuple[float, float]:
         """Return the world position of the front bumper centre."""
         half_l = self.length / 2.0
         wx = self.state.x + half_l * math.sin(self.state.theta)

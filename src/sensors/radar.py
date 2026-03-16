@@ -16,7 +16,7 @@ from __future__ import annotations
 
 import math
 from dataclasses import dataclass, field
-from typing import List, Optional, Tuple, Union
+
 
 import numpy as np
 
@@ -25,7 +25,7 @@ from src.models.obstacle import NPCVehicle, Obstacle
 
 
 # Type alias for any entity the radar can detect.
-RadarTarget = Union[NPCVehicle, Obstacle]
+RadarTarget = NPCVehicle | Obstacle
 
 
 @dataclass
@@ -43,9 +43,9 @@ class RadarReading:
     """Aggregated output of one radar scan cycle."""
 
     # Closest detection in the forward cone (None if nothing detected).
-    closest: Optional[RadarHit] = None
+    closest: RadarHit | None = None
     # All per-ray hit points, used for visualisation.
-    ray_hits: List[Tuple[float, float]] = field(default_factory=list)
+    ray_hits: list[tuple[float, float]] = field(default_factory=list)
 
 
 class Radar:
@@ -80,7 +80,7 @@ class Radar:
         ego_x: float,
         ego_y: float,
         ego_theta: float,
-        targets: List[RadarTarget],
+        targets: list[RadarTarget],
     ) -> RadarReading:
         """Perform a full radar scan and return a :class:`RadarReading`.
 
@@ -123,8 +123,8 @@ class Radar:
         oy: float,
         dx: float,
         dy: float,
-        targets: List[RadarTarget],
-    ) -> Optional[RadarHit]:
+        targets: list[RadarTarget],
+    ) -> RadarHit | None:
         """Intersect a single ray against all target AABBs.
 
         Uses the slab method (Kay-Kajiya) for AABB intersection.
@@ -139,7 +139,7 @@ class Radar:
             within range.
         """
         best_t = self.range_m
-        best_hit: Optional[RadarHit] = None
+        best_hit: RadarHit | None = None
 
         for target in targets:
             half_w = target.width / 2.0
@@ -175,7 +175,7 @@ def _ray_aabb_intersect(
     dx: float, dy: float,
     min_x: float, min_y: float,
     max_x: float, max_y: float,
-) -> Optional[float]:
+) -> float | None:
     """Slab-method ray–AABB intersection test.
 
     Args:

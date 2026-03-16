@@ -8,7 +8,7 @@ loop and the World itself write to it.
 from __future__ import annotations
 
 import random
-from typing import List, Union
+
 
 from src import config
 from src.models.obstacle import NPCVehicle, Obstacle, _lane_center_x
@@ -16,7 +16,7 @@ from src.models.vehicle import Vehicle
 
 
 # Type alias for anything that can block the radar.
-TrafficObject = Union[NPCVehicle, Obstacle]
+TrafficObject = NPCVehicle | Obstacle
 
 
 class World:
@@ -36,7 +36,7 @@ class World:
 
     def __init__(self) -> None:
         # Road geometry – derived once from config.
-        self.lane_centers_x: List[float] = [
+        self.lane_centers_x: list[float] = [
             _lane_center_x(i) for i in range(config.NUM_LANES)
         ]
 
@@ -50,8 +50,8 @@ class World:
             color=config.COLOR_EGO,
         )
 
-        self.npcs: List[NPCVehicle] = []
-        self.obstacles: List[Obstacle] = []
+        self.npcs: list[NPCVehicle] = []
+        self.obstacles: list[Obstacle] = []
         self.target_speed: float = config.ACC_DEFAULT_TARGET_SPEED_MS
         self.time: float = 0.0
 
@@ -107,7 +107,7 @@ class World:
     def _manage_npc_population(self) -> None:
         """Cull NPCs that have fallen behind and respawn them ahead."""
         ego_y = self.ego.y
-        alive: List[NPCVehicle] = []
+        alive: list[NPCVehicle] = []
 
         for npc in self.npcs:
             if npc.y > ego_y - config.NPC_CULL_BEHIND_M:
@@ -125,9 +125,9 @@ class World:
     # Convenience accessors
     # ------------------------------------------------------------------
 
-    def all_traffic(self) -> List[TrafficObject]:
+    def all_traffic(self) -> list[TrafficObject]:
         """Return every obstacle-like entity (NPCs + static obstacles)."""
-        result: List[TrafficObject] = []
+        result: list[TrafficObject] = []
         result.extend(self.npcs)
         result.extend(self.obstacles)
         return result
