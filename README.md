@@ -1,5 +1,12 @@
 # AgenticUsecase
 
+The purpose of this repo was to show the capabilities of autogenerating a complete github project 
+with the Gihub Copilot in **agent/planning**-mode. The project and it's branches are runnable. 
+There will be no further development in the project.
+To reproduce the result or similar, create an empty git project in your local workspace and
+copy the **agents.md** inside. Then open VSCode, add the folder to your workspace and let 
+Copilot play. The result would be similar, but not the same.
+
 ## ADAS Highway Simulation
 
 A 2-D top-down highway simulation in Python featuring Advanced Driver Assistance Systems (ADAS):
